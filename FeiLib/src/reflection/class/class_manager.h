@@ -4,24 +4,14 @@
 
 namespace class_reflection::details
 {
+
+
+
     class class_manager
     {
     private:
         std::unordered_map<std::string_view, meta_class> all_class;
     public:
-        /**
-         * \brief register meta_class data, auto use by MACRO
-         */
-        void register_class(std::string_view class_name, const meta_property& meta_property)
-        {
-            const auto iterator = all_class.find(class_name);
-            if (iterator == all_class.end())
-            {
-                all_class.insert(std::make_pair(class_name, meta_class{class_name}));
-            }
-            all_class[class_name].member_infos.push_back(meta_property);
-        }
-
         template<typename ClassType, typename MemberType>
         MemberType* get_member(ClassType* class_pointer, std::string_view member_name)
         {
@@ -37,6 +27,21 @@ namespace class_reflection::details
         inline static class_manager& get_instance() {
             return lazy_singleton<class_manager>::get_instance();
         }
+
+    public:
+        /**
+         * \brief register meta_class data, auto use by MACRO
+         */
+        void register_class(std::string_view class_name, const meta_property& meta_property)
+        {
+            const auto iterator = all_class.find(class_name);
+            if (iterator == all_class.end())
+            {
+                all_class.insert(std::make_pair(class_name, meta_class{class_name}));
+            }
+            all_class[class_name].member_infos.push_back(meta_property);
+        }
+
     };
 
 }

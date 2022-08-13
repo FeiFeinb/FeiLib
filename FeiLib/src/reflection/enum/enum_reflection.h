@@ -7,26 +7,31 @@ namespace enum_reflection::details {
     using enum_underlying_type = int;
 
     struct enum_min_max_range {
-        static constexpr enum_underlying_type enum_min_index = -10;
-        static constexpr enum_underlying_type enum_max_index = 10;
+        static constexpr enum_underlying_type enum_min_index = -100;
+        static constexpr enum_underlying_type enum_max_index = 100;
     };
 
 
     template<typename EnumType, EnumType>
-    std::string_view get_enum_value_name() {
+    constexpr std::string_view get_enum_value_name() {
         return split_string_view_last_of(__FUNCSIG__, ',', '>');
     }
 
     template<typename>
-    std::string_view get_enum_class_name() {
+    constexpr std::string_view get_enum_class_name() {
         return split_string_view(__FUNCSIG__, "<enum ", ">");
     }
 
-    bool is_valid_enum_name(std::string_view enum_name);
+    __forceinline constexpr bool is_valid_enum_name(std::string_view enum_name)
+    {
+        return !enum_name.empty() && enum_name[0] != '(';
+    }
 
     class meta_enum {
     private:
         std::vector<std::pair<enum_underlying_type, std::string_view>> enum_infos;
+
+
     public:
         template<typename EnumType>
         static meta_enum make_enum_reflection_data() {
@@ -70,6 +75,10 @@ namespace enum_reflection::details {
         }
 
     public:
+        inline static enum_manager& get_instance() {
+            return lazy_singleton<enum_manager>::get_instance();
+        }
+
         template<typename EnumType>
         std::string_view get_enum_name(EnumType enum_value) {
             // we have string_view such like this: "enum RGB::Color",
@@ -89,22 +98,21 @@ namespace enum_reflection::details {
         template<typename EnumType>
         EnumType get_enum_value(std::string_view enum_name) {
             const std::string_view enum_type_name = get_enum_class_name<EnumType>();
-            auto cached_enum = all_enum.find(enum_type_name);
+            const auto cached_enum = all_enum.find(enum_type_name);
             // TODO: Throw Runtime Error?
             if (cached_enum == all_enum.end())
                 return EnumType {};
             return static_cast<EnumType>(cached_enum->second.get_value_from_name(enum_name));
         }
 
-
+    public:
+        /**
+         * \brief register meta_enum data, auto use by MACRO
+         */
         template<typename EnumType>
         void register_enum() {
             const std::string_view enum_type_name = get_enum_class_name<EnumType>();
             register_enum<EnumType>(enum_type_name);
-        }
-
-        inline static enum_manager& get_instance() {
-            return lazy_singleton<enum_manager>::get_instance();
         }
     };
 }

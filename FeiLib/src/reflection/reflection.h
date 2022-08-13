@@ -35,4 +35,21 @@ namespace enum_reflection {
 namespace class_reflection
 {
 
+#define FEI_CLASS(CLASS_NAME) \
+private: \
+	friend class_reflection::details::class_manager; \
+    constexpr static std::string_view class_name = #CLASS_NAME; \
+	using ClassType = CLASS_NAME;
+
+#define FEI_PROPERTY(PROPERTY_NAME) \
+	struct PROPERTY_NAME##_wrapper : public meyers_static<PROPERTY_NAME##_wrapper> \
+    { \
+		PROPERTY_NAME##_wrapper() \
+        { \
+			const class_reflection::details::meta_property property = { #PROPERTY_NAME, offsetof(ClassType, PROPERTY_NAME)}; \
+			class_reflection::details::class_manager::get_instance().register_class(class_name, property); \
+        } \
+    };
+
+
 }

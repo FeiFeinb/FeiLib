@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\reflection\class\class_manager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\reflection\enum\enum_reflection.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

@@ -35,7 +35,6 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\reflection\class\class_manager.cpp" />
     <ClCompile Include="src\reflection\enum\enum_reflection.cpp" />
     <ClCompile Include="src\utility\utility_func.cpp" />
   </ItemGroup>

@@ -3,27 +3,25 @@
 #include "reflection/reflection.h"
 #include "utility/utility_func.h"
 
+#include "color.h"
+
 class Color_Manager
 {
+    FEI_CLASS(Color_Manager)
+
 public:
-    constexpr static std::string_view class_name = "Color_Manager";
-private:
-    struct int_data_wrapper : public meyers_static<int_data_wrapper>
-    {
-        int_data_wrapper()
-        {
-            class_reflection::details::meta_property property = {"int_data", get_member_offset(&Color_Manager::int_data)};
-            class_reflection::details::class_manager::get_instance().register_class(class_name, property);
-        }
-    };
-    int int_data = 10;
-
-    int int_data2 = 20;
-
-    float float_data = 3.14f;
-
-    bool bool_data = true;
+    FEI_PROPERTY(int_data)
+    int int_data = 30;
 };
+
+template<typename>
+constexpr std::string_view get_type_name()
+{
+    std::string_view funcSig =__FUNCSIG__;
+    return split_string_view_first_last(
+        funcSig.substr(funcSig.find("get_type_name")), '<', '>');
+}
+
 
 int main() {
     //auto& manager = enum_reflection::details::enum_manager::get_instance();
@@ -41,7 +39,7 @@ int main() {
     auto classManager = class_reflection::details::class_manager::get_instance();
     int* p = classManager.get_member<Color_Manager, int>(&colorManager, "int_data");
 
-    std::cout << sizeof(Color_Manager);
+    std::cout << get_type_name<std::vector<int>>();
 
     return 0;
 }
