@@ -48,6 +48,7 @@
     <ClInclude Include="src\reflection\reflection.h" />
     <ClInclude Include="src\utility\lazy_singleton.h" />
     <ClInclude Include="src\utility\utility_func.h" />
+    <ClInclude Include="src\utility\utility_traits.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

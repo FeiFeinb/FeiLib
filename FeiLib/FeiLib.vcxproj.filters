@@ -59,5 +59,8 @@
     <ClInclude Include="src\reflection\class\meta_class.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\utility\utility_traits.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

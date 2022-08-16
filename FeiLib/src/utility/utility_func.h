@@ -1,9 +1,5 @@
 ﻿#pragma once
 
-template<typename EnumType>
-inline constexpr bool is_enum_class_v = std::is_enum_v<EnumType> &&
-                                        !std::is_convertible_v<EnumType, std::underlying_type_t<EnumType>>;
-
 template<auto StartIndex, auto EndIndex, typename FunctionType>
 void constexpr_for(const FunctionType& for_callback) {
     if constexpr (StartIndex < EndIndex) {
