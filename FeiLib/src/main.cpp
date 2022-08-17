@@ -2,6 +2,7 @@
 
 #include "reflection/reflection.h"
 #include "utility/utility_func.h"
+#include "utility/utility_string.h"
 #include "utility/utility_traits.h"
 #include "color.h"
 
@@ -15,11 +16,14 @@ public:
 
 
 template<typename>
-constexpr std::string_view get_type_name()
+constexpr void get_type_name()
 {
-    std::string_view funcSig = __FUNCSIG__;
-    return split_string_view_first_last(
-	    funcSig.substr(funcSig.find("get_type_name")), '<', '>');
+    std::string_view func_sig = __FUNCSIG__;
+    std::string class_type_name = split_string_first_last<std::string_view>(func_sig, '<', '>');
+    std::cout << class_type_name << std::endl;
+    // std::vector<std::vector<int>>
+    // class std::vector<class std::vector<int,class std::allocator<int> >,class std::allocator<class std::vector<int,class std::allocator<int> > > >
+    // TODO: Remove "class " And " "
 }
 
 void test_enum_reflection()
@@ -37,18 +41,11 @@ void test_class_reflection()
     auto classManager = class_reflection::details::class_manager::get_instance();
     int* p = classManager.get_member<Color_Manager, int>(&colorManager, "int_data");
 
-    std::cout << get_type_name<std::vector<int>>();
+    // std::cout << get_type_name<std::vector<int>>();
 }
 
 
 int main()
 {
-    // int[2][2][2][2][2]
-    using ArrayType = multi_dimensional_arrays_t<int, 1, 100>;
-
-    // int[4][3][2][1]
-    using ArrayTypeNonRegular = multi_dimensional_arrays_non_regular_reversed_t<int, 1, 2, 3, 4>;
-
-    // int[1][2][3][4]
-    using ArrayTypeNonRegular_Reverse = multi_dimensional_arrays_non_regular_t<int, 1, 2, 3, 4>;
+    get_type_name<std::vector<std::vector<int>>>();
 }

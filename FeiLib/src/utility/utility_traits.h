@@ -1,5 +1,8 @@
 #pragma once
 
+/*
+ * Is Type enum class?
+ */
 template<typename EnumType>
 inline constexpr bool is_enum_class_v = std::is_enum_v<EnumType> &&
 !std::is_convertible_v<EnumType, std::underlying_type_t<EnumType>>;
@@ -52,6 +55,12 @@ struct multi_dimensional_arrays
 	using type = typename multi_dimensional_arrays_impl<ArrayElementType, Count, Dimension>::type;
 };
 
+
+/*
+ * Sample Code:
+ * using ArrayType = multi_dimensional_arrays_t<int, 2, 5>
+ * Now We Get ArrayType As int[2][2][2][2][2]
+ */
 template<typename ArrayElementType, std::size_t Count, std::size_t Dimension>
 using multi_dimensional_arrays_t = typename multi_dimensional_arrays<ArrayElementType, Count, Dimension>::type;
 
@@ -75,6 +84,11 @@ struct multi_dimensional_arrays_non_regular_reversed
 	using type = typename multi_dimensional_arrays_non_regular_reversed_impl<ArrayElementType, Is...>::type;
 };
 
+/*
+ * Sample Code:
+ * using ArrayTypeNonRegular = multi_dimensional_arrays_non_regular_reversed_t<int, 1, 2, 3, 4>;
+ * Now We Get ArrayTypeNonRegular As int[4][3][2][1]
+ */
 template<typename ArrayElementType, std::size_t... Is>
 using multi_dimensional_arrays_non_regular_reversed_t = typename multi_dimensional_arrays_non_regular_reversed<ArrayElementType, Is...>::type;
 
@@ -98,5 +112,10 @@ struct multi_dimensional_arrays_non_regular
 	using type = typename multi_dimensional_arrays_non_regular_impl<ArrayElementType, sizeof...(Is) - 1, Is...>::type;
 };
 
+/*
+ * Sample Code:
+ * using ArrayTypeNonRegular_Reverse = multi_dimensional_arrays_non_regular_t<int, 1, 2, 3, 4>;
+ * Now We Get ArrayTypeNonRegular_Reverse As int[1][2][3][4]
+ */
 template<typename ArrayElementType, std::size_t... Is>
 using multi_dimensional_arrays_non_regular_t = typename multi_dimensional_arrays_non_regular<ArrayElementType, Is...>::type;

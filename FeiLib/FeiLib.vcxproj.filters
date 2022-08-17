@@ -30,6 +30,9 @@
     <ClCompile Include="src\pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\utility\utility_string.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\reflection\class\class_manager.h">
@@ -60,6 +63,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\utility\utility_traits.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\utility_string.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

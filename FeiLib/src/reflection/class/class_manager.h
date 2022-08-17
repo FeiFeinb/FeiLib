@@ -4,9 +4,6 @@
 
 namespace class_reflection::details
 {
-
-
-
     class class_manager
     {
     private:
@@ -30,7 +27,7 @@ namespace class_reflection::details
 
     public:
         /**
-         * \brief register meta_class data, auto use by MACRO
+         * \brief Register meta_class Data, Used By MACRO Automatically
          */
         void register_class(std::string_view class_name, const meta_property& meta_property)
         {

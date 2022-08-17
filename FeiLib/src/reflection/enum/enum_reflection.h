@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "utility/utility_string.h"
 #include "utility/utility_func.h"
 #include "utility/lazy_singleton.h"
 
@@ -14,11 +15,21 @@ namespace enum_reflection::details {
 
     template<typename EnumType, EnumType>
     constexpr std::string_view get_enum_value_name() {
+        // Consume That There Is A Enum In Namespace Called RBG::Color
+        // If We Loop Through This Method, Then We May Have __FUNCSIG__ As
+        // class std::basic_string_view<char,struct std::char_traits<char> > __cdecl enum_reflection::details::get_enum_value_name<enum RGB::Color,(enum RGB::Color)0x0>(void)
+        // Or
+        // class std::basic_string_view<char,struct std::char_traits<char> > __cdecl enum_reflection::details::get_enum_value_name<enum RGB::Color,RGB::Color::Red>(void)
+        // So We Split It By "," And ">"
         return split_string_view_last_of(__FUNCSIG__, ',', '>');
     }
 
     template<typename>
     constexpr std::string_view get_enum_class_name() {
+        // Consume That There Is A Enum In Namespace Called RBG::Color
+        // If Call By get_enum_class_name<RGB::Color>, Then We Have __FUNCSIG__ As
+        // class std::basic_string_view<char,struct std::char_traits<char> > __cdecl enum_reflection::details::get_enum_class_name<enum RGB::Color>(void)
+        // So We Split It By "<enum" And ">"
         return split_string_view(__FUNCSIG__, "<enum ", ">");
     }
 
@@ -107,7 +118,7 @@ namespace enum_reflection::details {
 
     public:
         /**
-         * \brief register meta_enum data, auto use by MACRO
+         * \brief Register Meta_enum Data, Call By MACRO Automatically
          */
         template<typename EnumType>
         void register_enum() {
