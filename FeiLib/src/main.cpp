@@ -8,18 +8,18 @@
 class Color_Manager
 {
     FEI_CLASS(Color_Manager)
-
 public:
     FEI_PROPERTY(int_data)
     int int_data = 30;
 };
 
+
 template<typename>
 constexpr std::string_view get_type_name()
 {
-    std::string_view funcSig =__FUNCSIG__;
+    std::string_view funcSig = __FUNCSIG__;
     return split_string_view_first_last(
-        funcSig.substr(funcSig.find("get_type_name")), '<', '>');
+	    funcSig.substr(funcSig.find("get_type_name")), '<', '>');
 }
 
 void test_enum_reflection()
@@ -41,28 +41,14 @@ void test_class_reflection()
 }
 
 
+int main()
+{
+    // int[2][2][2][2][2]
+    using ArrayType = multi_dimensional_arrays_t<int, 1, 100>;
 
-int main() {
-    // int[2][2][2]
-    using ArrayType = multi_dimensional_arrays_t<int, 2, 3>;
+    // int[4][3][2][1]
+    using ArrayTypeNonRegular = multi_dimensional_arrays_non_regular_reversed_t<int, 1, 2, 3, 4>;
 
-    using IS = std::index_sequence<2, 90, 2, 3>;
-
-
-
-    // how to get std::index_sequence<2, 90, 2, 3>
-    std::cout << index_sequence_element_v<0, std::index_sequence<2, 90, 2, 3>>;
-    std::cout << index_sequence_element_v<1, std::index_sequence<2, 90, 2, 3>>;
-    std::cout << index_sequence_element_v<2, std::index_sequence<2, 90, 2, 3>>;
-    std::cout << index_sequence_element_v<3, std::index_sequence<2, 90, 2, 3>>;
-
-
-    std::cout << index_args_element_v<3, 2, 90, 2, 3>;
-    std::cout << index_args_element_v<3, 2, 90, 2, 3>;
-
-
-    // std::cout << std::get<IS::size() - 1>(std::tuple<int, int>())
-
-    // Actually It Is int[2][90][2][3]
-    using ArrayType_Non_Regular = multi_dimensional_arrays_non_regular_t<int, 3, 2, 90, 2>;
+    // int[1][2][3][4]
+    using ArrayTypeNonRegular_Reverse = multi_dimensional_arrays_non_regular_t<int, 1, 2, 3, 4>;
 }
