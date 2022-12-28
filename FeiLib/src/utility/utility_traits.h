@@ -58,7 +58,7 @@ struct multi_dimensional_arrays
 
 /*
  * Sample Code:
- * using ArrayType = multi_dimensional_arrays_t<int, 2, 5>
+ *	using ArrayType = multi_dimensional_arrays_t<int, 2, 5>
  * Now We Get ArrayType As int[2][2][2][2][2]
  */
 template<typename ArrayElementType, std::size_t Count, std::size_t Dimension>
@@ -86,7 +86,7 @@ struct multi_dimensional_arrays_non_regular_reversed
 
 /*
  * Sample Code:
- * using ArrayTypeNonRegular = multi_dimensional_arrays_non_regular_reversed_t<int, 1, 2, 3, 4>;
+ *	using ArrayTypeNonRegular = multi_dimensional_arrays_non_regular_reversed_t<int, 1, 2, 3, 4>;
  * Now We Get ArrayTypeNonRegular As int[4][3][2][1]
  */
 template<typename ArrayElementType, std::size_t... Is>
@@ -114,8 +114,14 @@ struct multi_dimensional_arrays_non_regular
 
 /*
  * Sample Code:
- * using ArrayTypeNonRegular_Reverse = multi_dimensional_arrays_non_regular_t<int, 1, 2, 3, 4>;
+ *	using ArrayTypeNonRegular_Reverse = multi_dimensional_arrays_non_regular_t<int, 1, 2, 3, 4>;
  * Now We Get ArrayTypeNonRegular_Reverse As int[1][2][3][4]
  */
 template<typename ArrayElementType, std::size_t... Is>
 using multi_dimensional_arrays_non_regular_t = typename multi_dimensional_arrays_non_regular<ArrayElementType, Is...>::type;
+
+
+
+
+
+

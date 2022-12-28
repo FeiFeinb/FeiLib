@@ -11,6 +11,13 @@ namespace class_reflection::details
 
 	    std::string_view class_name;
 	    std::vector<meta_property> member_infos;
+
+        /**
+		 * \brief Register meta_property data, used by FEI_PROPERTY() automatically
+		 */
+        void register_property(const meta_property& meta_property)
+        {
+            member_infos.push_back(meta_property);
+        }
 	};
-	
 }

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "reflection/enum/enum_reflection.h"
+#include "reflection/class/meta_class.h"
 #include "reflection/class/class_manager.h"
 
 #ifdef _MSC_VER
@@ -47,7 +48,7 @@ private: \
 		PROPERTY_NAME##_wrapper() \
         { \
 			const class_reflection::details::meta_property property = { #PROPERTY_NAME, offsetof(ClassType, PROPERTY_NAME)}; \
-			class_reflection::details::class_manager::get_instance().register_class(class_name, property); \
+			class_reflection::details::class_manager::get_instance().register_property(class_name, property); \
         } \
     };
 

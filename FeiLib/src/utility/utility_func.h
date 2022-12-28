@@ -1,8 +1,10 @@
 ﻿#pragma once
 
 template<auto StartIndex, auto EndIndex, typename FunctionType>
-void constexpr_for(const FunctionType& for_callback) {
-    if constexpr (StartIndex < EndIndex) {
+void constexpr_for(const FunctionType& for_callback)
+{
+    if constexpr (StartIndex < EndIndex)
+	{
         for_callback.template operator()<StartIndex>();
         constexpr_for<StartIndex + 1, EndIndex>(for_callback);
     }
@@ -10,7 +12,8 @@ void constexpr_for(const FunctionType& for_callback) {
 
 
 template<typename StaticMemberType>
-struct meyers_static {
+struct meyers_static
+{
     meyers_static()
     {
         (void)meyers_static_member;
@@ -20,3 +23,5 @@ struct meyers_static {
 
 template<typename StaticMemberType>
 StaticMemberType meyers_static<StaticMemberType>::meyers_static_member;
+
+

@@ -68,5 +68,8 @@
     <ClInclude Include="src\utility\utility_string.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\utility\utility_function.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

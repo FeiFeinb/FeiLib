@@ -49,6 +49,7 @@
     <ClInclude Include="src\reflection\reflection.h" />
     <ClInclude Include="src\utility\lazy_singleton.h" />
     <ClInclude Include="src\utility\utility_func.h" />
+    <ClInclude Include="src\utility\utility_function.h" />
     <ClInclude Include="src\utility\utility_string.h" />
     <ClInclude Include="src\utility\utility_traits.h" />
   </ItemGroup>
